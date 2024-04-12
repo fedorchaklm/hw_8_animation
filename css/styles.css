@@ -1,0 +1,608 @@
+:root {
+  --grass-height: 150px;
+  --mountains-height: 600px;
+  --sun-size: 225px;
+  --moon-size: 120px;
+  --animation-duration: 24s;
+  --stars-height: 300px;
+}
+
+body {
+  min-width: 1250px;
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+@keyframes shakeMove {
+  from {
+    transform: skew(1deg, 1deg);
+  }
+  to {
+    transform: skew(-1deg, -1deg);
+  }
+}
+
+@keyframes butterflyMove {
+  from {
+    transform: skew(-5deg, 5deg);
+  }
+  to {
+    transform: skew(5deg, -5deg);
+  }
+}
+
+@keyframes cloudsMove {
+  from {
+    right: 0;
+    transform: translate(-100%);
+  }
+  to {
+    right: -100%;
+    transform: translate(0%);
+  }
+}
+
+@keyframes starsSize {
+  from {
+    transform: scale(0);
+  }
+  25% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(0);
+  }
+  75% {
+    transform: scale(0.2);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+
+@keyframes sunriseSky {
+  from {
+    background-color: aqua;
+  }
+  40% {
+    background-color: aqua;
+  }
+  to {
+    background-color: blue;
+  }
+}
+
+@keyframes dayLight {
+  from {
+    filter: brightness(0.5);
+  }
+  25% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.5);
+  }
+  75% {
+    filter: brightness(0.3);
+  }
+  to {
+    filter: brightness(0.5);
+  }
+}
+
+@keyframes skyColor {
+  from {
+    background-color: #3b6b92;
+  }
+  25% {
+    background-color: #87ceeb;
+  }
+  50% {
+    background-color: #4682b4;
+  }
+  75% {
+    background-color: #03154c;
+  }
+  to {
+    background-color: #3b6b92;
+  }
+}
+
+@keyframes cloudMove {
+  from,
+  to {
+    transform: translate(0);
+  }
+
+  50% {
+    transform: translateX(80px);
+  }
+}
+
+@keyframes moonMoveX {
+  from {
+    left: 200%;
+  }
+  50% {
+    left: 100%;
+  }
+  to {
+    left: calc(-1 * var(--moon-size));
+  }
+}
+
+@keyframes moonMoveY {
+  from {
+    top: 50%;
+  }
+  50% {
+    top: 0;
+  }
+  to {
+    top: 50%;
+  }
+}
+
+@keyframes sunMoveX {
+  from {
+    left: 100%;
+  }
+  50% {
+    left: calc(-1 * var(--sun-size));
+  }
+  to {
+    left: -100%;
+  }
+}
+
+@keyframes sunMoveY {
+  from {
+    top: 50%;
+  }
+  50% {
+    top: 0;
+  }
+  to {
+    top: 50%;
+  }
+}
+
+/* sky */
+
+.sky {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: var(--grass-height);
+  background-color: #87ceeb;
+  transition: all 5s;
+  animation: skyColor var(--animation-duration) linear infinite;
+}
+
+.mountains {
+  position: absolute;
+  bottom: var(--grass-height);
+  width: 100%;
+  height: var(--mountains-height);
+  background: url("../images/mountains.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: dayLight var(--animation-duration) linear infinite;
+}
+
+/* sun */
+
+.sun {
+  transition: transform 2s;
+  position: absolute;
+  width: var(--sun-size);
+  height: var(--sun-size);
+  background: url("../images/sun.svg");
+  animation: sunMoveX var(--animation-duration) ease-in-out infinite,
+    sunMoveY calc(0.5 * var(--animation-duration)) ease-in-out infinite
+      alternate;
+}
+
+.eyes {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  width: 90px;
+  height: 60px;
+  background: url("../images/eyes.svg");
+}
+
+.mouth {
+  position: absolute;
+  top: 57%;
+  left: 30%;
+  width: 90px;
+  height: 60px;
+  background: url("../images/mouth.svg") top 0 left 0;
+}
+
+.sun:hover {
+  filter: brightness(1.5);
+  transform: rotate(360deg);
+}
+
+/* moon */
+
+.moon {
+  position: absolute;
+  width: var(--moon-size);
+  height: var(--moon-size);
+  background: url("../images/moon.svg");
+  background-size: 450%;
+  animation: moonMoveX var(--animation-duration) ease-in-out infinite,
+    moonMoveY calc(0.5 * var(--animation-duration)) ease-in-out infinite
+      alternate;
+}
+
+/* Stars */
+
+.stars_first,
+.stars_second,
+.stars_third,
+.stars_fourth {
+  position: absolute;
+  width: 50%;
+  height: var(--stars-height);
+}
+
+.stars_first {
+  top: 0;
+  left: 0;
+}
+
+.stars_second {
+  top: 0;
+  left: 50%;
+}
+
+.stars_third {
+  top: var(--stars-height);
+  left: 0;
+}
+
+.stars_fourth {
+  top: var(--stars-height);
+  left: 50%;
+}
+
+.star_first,
+.star_second,
+.star_third,
+.star_fourth,
+.star_fifth {
+  position: absolute;
+  width: 95px;
+  height: 95px;
+  background: url("../images/star.svg");
+  animation: starsSize var(--animation-duration) infinite;
+}
+
+.star_first {
+  top: 10%;
+  left: 5%;
+}
+
+.star_second {
+  top: 45%;
+  left: 20%;
+}
+
+.star_third {
+  top: 5%;
+  left: 40%;
+}
+
+.star_fourth {
+  top: 60%;
+  right: 25%;
+}
+
+.star_fifth {
+  top: 20%;
+  right: 5%;
+}
+
+/* end Stars */
+
+/* Clouds */
+.clouds {
+  position: absolute;
+  width: 100%;
+  height: 200px;
+  z-index: 10;
+  animation: cloudsMove var(--animation-duration) infinite;
+}
+
+.cloud_first,
+.cloud_second,
+.cloud_third,
+.cloud_fourth,
+.cloud_fifth {
+  position: absolute;
+  animation: shakeMove 1s linear infinite alternate;
+}
+
+.cloud_first {
+  top: 10%;
+  left: 5%;
+  width: 285px;
+  height: 150px;
+  background: url("../images/cloud.svg");
+}
+
+.cloud_second {
+  top: 45%;
+  left: 20%;
+  width: 378px;
+  height: 250px;
+  background: url("../images/cloud_second.svg");
+}
+
+.cloud_third {
+  top: 5%;
+  left: 40%;
+  width: 380px;
+  height: 150px;
+  background: url("../images/cloud_third.svg");
+}
+
+.cloud_fourth {
+  top: 60%;
+  right: 25%;
+  width: 285px;
+  height: 150px;
+  background: url("../images/cloud.svg");
+}
+
+.cloud_fifth {
+  position: absolute;
+  top: 20%;
+  right: 5%;
+  width: 378px;
+  height: 150px;
+  background: url("../images/cloud_second.svg");
+}
+
+/* end Clouds */
+
+/* grass */
+
+.grass {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: var(--grass-height);
+  background: url("../images/grass.svg");
+  background-repeat: repeat;
+  animation: dayLight var(--animation-duration) linear infinite;
+}
+
+.cage {
+  position: absolute;
+  left: 25%;
+  bottom: 42%;
+  width: 350px;
+  height: 80px;
+  background-repeat: no-repeat;
+}
+
+.rabbit {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100px;
+  height: 80px;
+  background-size: 450%;
+  background-image: url("../images/rabbit.svg");
+  background-repeat: no-repeat;
+  transition: all 2s;
+}
+
+.cage:hover .rabbit {
+  left: 0;
+}
+
+.tree_first:active,
+.tree_second:active,
+.tree_third:active {
+  animation: shakeMove 0.1s infinite;
+}
+
+.tree_first,
+.birds_first {
+  position: absolute;
+  left: 0;
+  bottom: 5%;
+  width: 400px;
+  height: 400px;
+  background: url("../images/tree_third.svg");
+}
+
+.tree_second,
+.birds_second {
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  width: 330px;
+  height: 400px;
+  background: url("../images/tree_second.svg");
+}
+
+.tree_third,
+.birds_third {
+  position: absolute;
+  right: 0;
+  bottom: 5%;
+  width: 330px;
+  height: 400px;
+  background: url("../images/tree_first.svg");
+  z-index: 1;
+}
+
+label {
+  display: block;
+  width: 100%;
+  height: 200px;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.butterfly_first,
+.butterfly_second,
+.butterfly_third {
+  width: 50px;
+  height: 50px;
+  background: url("../images/butterfly.svg");
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transition: top 0.5s, left 0.5s;
+}
+
+.bush_first:hover .butterfly_first,
+.bush_second:hover .butterfly_first,
+.bush_third:hover .butterfly_first {
+  top: -40%;
+  animation: butterflyMove 0.25s infinite alternate;
+}
+
+.bush_first:hover .butterfly_second,
+.bush_second:hover .butterfly_second,
+.bush_third:hover .butterfly_second {
+  top: -20%;
+  left: 20%;
+  animation: butterflyMove 0.3s infinite alternate;
+}
+
+.bush_first:hover .butterfly_third,
+.bush_second:hover .butterfly_third,
+.bush_third:hover .butterfly_third {
+  top: -10%;
+  left: 80%;
+  animation: butterflyMove 0.2s infinite alternate;
+}
+
+.bush_first,
+.bush_second,
+.bush_third {
+  position: absolute;
+}
+
+.bush_first:hover .bush,
+.bush_second:hover .bush,
+.bush_third:hover .bush {
+  animation: shakeMove 0.1s ease-in-out infinite alternate;
+}
+
+.bush_first {
+  top: -100%;
+  left: 28%;
+}
+
+.bush_second {
+  left: 15%;
+  bottom: 20%;
+}
+
+.bush_third {
+  right: 14%;
+  bottom: 60%;
+}
+
+.bush {
+  width: 400px;
+  height: 150px;
+  background-size: 190%;
+  background-image: url("../images/bushes.svg");
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.bird_first,
+.bird_second,
+.bird_third,
+.bird_fourth,
+.bird_fifth,
+.bird_sixth {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  background: url("../images/bird.gif");
+  transition-property: top, right;
+  transition-duration: 5s;
+}
+
+.bird_first {
+  top: 16%;
+  right: 50%;
+  transform: rotateY(180deg);
+}
+
+.bird_second {
+  top: 6%;
+  right: 40%;
+  transform: rotateY(180deg);
+}
+
+.bird_third {
+  top: 15%;
+  right: 20%;
+  transform: rotateY(180deg);
+}
+
+.bird_fourth {
+  top: 16%;
+  right: 50%;
+}
+
+.bird_fifth {
+  top: 6%;
+  right: 40%;
+}
+
+.bird_sixth {
+  top: 15%;
+  right: 20%;
+}
+
+input:checked + .bird_first {
+  transform: rotateY(0deg);
+  right: 100vw;
+}
+
+input:checked ~ .bird_second {
+  transform: rotateY(0deg);
+  right: 50vw;
+  top: -100vh;
+}
+
+input:checked ~ .bird_third {
+  transform: rotateY(0deg);
+  right: 100vw;
+  top: -100vh;
+}
+
+input:checked ~ .bird_fourth {
+  transform: rotateY(180deg);
+  right: -100vw;
+}
+
+input:checked ~ .bird_fifth {
+  transform: rotateY(180deg);
+  right: -50vw;
+  top: -100vh;
+}
+
+input:checked ~ .bird_sixth {
+  transform: rotateY(180deg);
+  right: -100vw;
+  top: -100vh;
+}
